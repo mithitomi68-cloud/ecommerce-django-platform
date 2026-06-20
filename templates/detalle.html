@@ -1,0 +1,138 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Estilos específicos para el nivel de detalle Ralph Lauren */
+    .pdp-container {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr; /* La imagen un poco más grande */
+        gap: 60px;
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 0 40px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .pdp-image img { width: 100%; border-radius: 2px; }
+
+    .pdp-info { padding-top: 20px; }
+
+    .breadcrumb { 
+        font-size: 10px; 
+        letter-spacing: 2px; 
+        color: #888; 
+        text-transform: uppercase; 
+        margin-bottom: 30px; 
+    }
+
+    .pdp-title { 
+        font-family: 'Playfair Display', serif; 
+        font-size: 34px; 
+        color: #041e3a; 
+        margin: 0; 
+        font-weight: 400; 
+    }
+
+    .pdp-brand { font-size: 13px; color: #333; margin-top: 8px; letter-spacing: 1px; }
+
+    .pdp-price { 
+        display: block; 
+        font-size: 20px; 
+        margin: 30px 0; 
+        color: #1a1a1a; 
+    }
+
+    .pdp-section-label { 
+        font-size: 11px; 
+        font-weight: 700; 
+        letter-spacing: 1.5px; 
+        margin-bottom: 15px; 
+        display: block; 
+    }
+
+    .size-selector { display: flex; gap: 10px; margin-bottom: 40px; }
+    .size-box { 
+        border: 1px solid #e5e5e5; 
+        padding: 12px 18px; 
+        font-size: 11px; 
+        cursor: pointer; 
+        transition: 0.3s; 
+    }
+    .size-box:hover { border-color: #041e3a; }
+
+    .btn-add-to-bag { 
+        display: block; 
+        background: #041e3a; 
+        color: white; 
+        text-align: center; 
+        padding: 20px; 
+        text-decoration: none; 
+        font-size: 12px; 
+        font-weight: 600; 
+        letter-spacing: 3px; 
+        transition: 0.3s;
+    }
+    .btn-add-to-bag:hover { background: #020d1a; }
+
+    .pdp-description-text { 
+        margin-top: 40px; 
+        font-family: 'Playfair Display', serif; 
+        font-size: 16px; 
+        line-height: 1.8; 
+        color: #333; 
+        border-top: 1px solid #f2f2f2; 
+        padding-top: 30px; 
+    }
+
+    .pdp-extra-info { 
+        border-top: 1px solid #f2f2f2; 
+        margin-top: 30px; 
+    }
+    .info-row { 
+        padding: 20px 0; 
+        border-bottom: 1px solid #f2f2f2; 
+        font-size: 11px; 
+        font-weight: 700; 
+        display: flex; 
+        justify-content: space-between; 
+        letter-spacing: 1px; 
+        cursor: pointer;
+    }
+</style>
+
+<div class="pdp-container">
+    <!-- Columna Izquierda -->
+    <div class="pdp-image">
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+    </div>
+
+    <!-- Columna Derecha -->
+    <div class="pdp-info">
+        <nav class="breadcrumb">Tienda / Colección Artesanal</nav>
+        
+        <h1 class="pdp-title">{{ producto.nombre }}</h1>
+        <p class="pdp-brand">Bluerdress Artisan Studio</p>
+        
+        <span class="pdp-price">S/ {{ producto.precio }}</span>
+
+        <span class="pdp-section-label">SIZE:</span>
+        <div class="size-selector">
+            <div class="size-box">S</div>
+            <div class="size-box">M</div>
+            <div class="size-box">L</div>
+        </div>
+
+        <a href="{% url 'agregar' producto.id %}" class="btn-add-to-bag">ADD TO BAG</a>
+
+        <div class="pdp-description-text">
+            {{ producto.descripcion|default:"Hand-knit with premium local fibers, this piece embodies the essence of artisanal luxury and timeless design." }}
+        </div>
+
+        <div class="pdp-extra-info">
+            <div class="info-row">PRODUCT DETAILS <span>+</span></div>
+            <div class="info-row">DELIVERY & RETURNS <span>+</span></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

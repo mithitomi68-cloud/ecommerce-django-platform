@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluerdress | Handmade Luxury</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           1. EL SECRETO: BLOQUEO HORIZONTAL ABSOLUTO
+           ========================================= */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden; /* Esto prohíbe terminantemente el arrastre a la izquierda/derecha */
+            background-color: #ffffff;
+        }
+
+        /* RESET GENERAL CON CONTENCIÓN */
+        .rl-home-layout {
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+            max-width: 100%;
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+        }
+        .rl-home-layout * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+        
+        .rl-section-spacing { margin-bottom: 30px; }
+
+        /* =========================================
+           2. ESTILOS DEL HEADER (AZUL MARINO DE LUJO)
+           ========================================= */
+        /* Barra de anuncios superior */
+        .bluer-topbar {
+            background-color: #041e3a; 
+            color: #ffffff; 
+            text-align: center; 
+            font-size: 0.65rem;
+            letter-spacing: 1px; 
+            padding: 10px 0; 
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            width: 100%;
+        }
+        .bluer-topbar a { color: #ffffff; text-decoration: underline; margin-left: 5px; }
+
+        /* Contenedor principal del menú ajustado al 100% real */
+        .bluer-header {
+            position: sticky; 
+            top: 0; 
+            background-color: #ffffff; 
+            width: 100%;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 20px 40px; 
+            border-bottom: 1px solid #e5e5e5;
+            z-index: 1000; 
+            font-family: 'Montserrat', sans-serif;
+            box-sizing: border-box;
+        }
+
+        /* Enlace del Logo */
+        .bluer-logo a {
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.8rem; 
+            font-weight: 500;
+            color: #041e3a; 
+            text-decoration: none; 
+            letter-spacing: 5px; 
+            text-transform: uppercase;
+        }
+
+        /* Enlaces de navegación */
+        .bluer-nav ul { list-style: none; display: flex; gap: 40px; margin: 0; padding: 0; }
+        .bluer-nav li { position: relative; }
+        .bluer-nav a { 
+            text-decoration: none; 
+            color: #041e3a; 
+            font-size: 0.7rem; 
+            font-weight: 500; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            padding-bottom: 5px; 
+            transition: color 0.3s; 
+        }
+        .bluer-nav a:hover { color: #8a9ea7; }
+
+        /* Menú desplegable elegante */
+        .bluer-dropdown {
+            display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+            background-color: #ffffff; min-width: 220px; box-shadow: 0 8px 24px rgba(4,30,58,0.08);
+            padding: 25px; border-top: 2px solid #041e3a; margin-top: 15px; z-index: 1001;
+        }
+        .bluer-nav li:hover .bluer-dropdown { display: flex; flex-direction: column; gap: 15px; }
+        .bluer-dropdown a { font-size: 0.7rem; color: #555; letter-spacing: 1px; font-weight: 400; }
+        .bluer-dropdown a:hover { color: #041e3a; text-decoration: underline; }
+
+        /* Iconos de utilidades */
+        .bluer-icons { display: flex; gap: 25px; align-items: center; }
+        .bluer-icons a { color: #041e3a; font-size: 1.15rem; text-decoration: none; transition: color 0.3s; }
+        .bluer-icons a:hover { color: #8a9ea7; }
+
+        /* =========================================
+           3. DISEÑO DE TEXTOS Y COMPOSICIÓN DE BANNERS
+           ========================================= */
+        .rl-home-layout a.rl-shop-link {
+            color: #fff; text-decoration: none; text-transform: uppercase;
+            font-size: 0.75rem; letter-spacing: 2px; border-bottom: 1px solid #fff;
+            padding-bottom: 4px; margin-right: 25px; transition: opacity 0.3s ease;
+            display: inline-block;
+        }
+        .rl-home-layout a.rl-shop-link:hover { opacity: 0.7; }
+
+        .rl-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; color: #fff; }
+        .rl-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 20px; line-height: 1.1; color: #fff; }
+        .rl-desc { font-size: 0.95rem; line-height: 1.6; margin-bottom: 35px; max-width: 500px; color: #fff; font-weight: 300; letter-spacing: 0.5px; }
+
+        .rl-hero-banner { position: relative; height: 85vh; width: 100%; display: flex; align-items: center; padding: 0 7%; overflow: hidden; }
+        .rl-hero-banner img.bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .rl-hero-banner .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%); z-index: 2; }
+        .rl-hero-content { position: relative; z-index: 3; }
+
+        .rl-split-banner { display: flex; width: 100%; height: 80vh; gap: 15px; }
+        .rl-half { flex: 1; position: relative; overflow: hidden; }
+        .rl-half img.bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .rl-half .overlay-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%); z-index: 2; }
+        .rl-half-content { position: absolute; bottom: 50px; left: 50px; z-index: 3; }
+
+        .rl-world-section { padding: 40px 0 60px 0; background-color: #fff; }
+        .rl-world-header { text-align: left; margin-bottom: 35px; padding-left: 10px; }
+        .rl-world-header h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 400; color: #041e3a; margin-bottom: 8px; }
+        .rl-world-header p { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #555; font-style: italic; }
+        
+        .rl-grid { display: flex; gap: 15px; }
+        .rl-card { flex: 1; height: 70vh; position: relative; overflow: hidden; }
+        .rl-card img.bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: transform 0.8s ease; }
+        .rl-card:hover img.bg-image { transform: scale(1.03); }
+        .rl-card .overlay-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 45%; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); z-index: 2; }
+        .rl-card-content { position: absolute; bottom: 35px; left: 35px; z-index: 3; }
+        .rl-card-content .rl-title { font-size: 1.8rem; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+{% block content %}
+
+    <div class="bluer-topbar">
+        Discover the new BLUERDRESS Summer Collection. <a href="{% url 'tienda' %}">Explore Now</a>
+    </div>
+
+    <header class="bluer-header">
+        <div class="bluer-logo">
+            <a href="{% url 'home' %}">BLUERDRESS</a>
+        </div>
+        <nav class="bluer-nav">
+            <ul>
+                <li>
+                    <a href="{% url 'tienda' %}">MEN</a>
+                    <div class="bluer-dropdown">
+                        <a href="#">New Arrivals</a>
+                        <a href="#">Knitwear</a>
+                        <a href="#">Accessories</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="{% url 'tienda' %}">WOMEN</a>
+                    <div class="bluer-dropdown">
+                        <a href="#">Spring Collection</a>
+                        <a href="#">Dresses</a>
+                        <a href="#">Sweaters</a>
+                    </div>
+                </li>
+                <li><a href="{% url 'tienda' %}">KIDS & BABY</a></li>
+                <li><a href="{% url 'tienda' %}">HOME</a></li>
+                <li><a href="{% url 'tienda' %}">DISCOVER</a></li>
+            </ul>
+        </nav>
+        <div class="bluer-icons">
+            <a href="#"><i class="fas fa-search"></i></a>
+            <a href="#"><i class="far fa-user"></i></a>
+            <a href="#"><i class="far fa-heart"></i></a>
+            <a href="#"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </header>
+
+    <div class="rl-home-layout">
+        
+        <section class="rl-hero-banner rl-section-spacing">
+            <img class="bg-image" src="\media\productos\pixlr-image-6a1f1974bcc33369f7080578.webp" alt="BLUERDRESS Summer" style="object-position: center 15%;">
+            <div class="overlay"></div>
+            <div class="rl-hero-content">
+                <p class="rl-label">BLUERDRESS</p>
+                <h1 class="rl-title">Spring/Summer 2027</h1>
+                <p class="rl-desc">La delicadeza del crochet hecho a mano se une a siluetas contemporáneas para redefinir el lujo atemporal.</p>
+                <a href="{% url 'tienda' %}" class="rl-shop-link">Shop Collection</a>
+                <a href="{% url 'tienda' %}" class="rl-shop-link">Explore Now</a>
+            </div>
+        </section>
+
+        <section class="rl-split-banner rl-section-spacing">
+            <div class="rl-half">
+                <img class="bg-image" src="\media\productos\pexels-anthony-dalesandro-1601290757-33231177.jpg" alt="BLUERDRESS Women" style="object-position: center top;">
+                <div class="overlay-bottom"></div>
+                <div class="rl-half-content">
+                    <p class="rl-label">BLUERDRESS Atelier</p>
+                    <h2 class="rl-title">The Women's Edit</h2>
+                    <p class="rl-desc">Texturas premium y acabados artesanales impecables creados para la comodidad diaria.</p>
+                    <a href="{% url 'tienda' %}" class="rl-shop-link">Shop Women</a>
+                </div>
+            </div>
+            <div class="rl-half">
+                <img class="bg-image" src="\media\productos\portrait-young-man-with-hat.jpg" alt="BLUERDRESS Men">
+                <div class="overlay-bottom"></div>
+                <div class="rl-half-content">
+                    <p class="rl-label">BLUERDRESS Heritage</p>
+                    <h2 class="rl-title">The Men's Collection</h2>
+                    <p class="rl-desc">Elegancia clásica tejida con precisión. Tradición estruturada para el armario moderno.</p>
+                    <a href="{% url 'tienda' %}" class="rl-shop-link">Shop Men</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="rl-world-section">
+            <div class="rl-world-header">
+                <h2>The World of Luxury</h2>
+                <p>Descubre colecciones de temporada, piezas icónicas para el hogar y accesorios</p>
+            </div>
+            <div class="rl-grid">
+                <div class="rl-card">
+                    <img class="bg-image" src="\media\productos\stocksnap-people-2566855.jpg" alt="Pequeños Tesoros" style="object-position: left top;">
+                    <div class="overlay-bottom"></div>
+                    <div class="rl-card-content">
+                        <p class="rl-label">BLUERDRESS Kids</p>
+                        <h3 class="rl-title">Pequeños Tesoros</h3>
+                        <a href="{% url 'tienda' %}" class="rl-shop-link">Shop Kids</a>
+                    </div>
+                </div>
+                <div class="rl-card">
+                    <img class="bg-image" src="\media\productos\still-life-crochet-plushies.jpg" alt="Home & Design">
+                    <div class="overlay-bottom"></div>
+                    <div class="rl-card-content">
+                        <p class="rl-label">BLUERDRESS Home</p>
+                        <h3 class="rl-title">Heirloom Plushies</h3>
+                        <a href="{% url 'tienda' %}" class="rl-shop-link">Shop Home</a>
+                    </div>
+                </div>
+                <div class="rl-card">
+                    <img class="bg-image" src="/media/productos/top-view-crochet-plush-still-life.jpg" alt="New Arrivals">
+                    <div class="overlay-bottom"></div>
+                    <div class="rl-card-content">
+                        <p class="rl-label">Exclusives</p>
+                        <h3 class="rl-title">New Collectibles</h3>
+                        <a href="{% url 'tienda' %}" class="rl-shop-link">Shop New Arrivals</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

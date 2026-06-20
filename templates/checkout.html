@@ -1,0 +1,94 @@
+{% extends 'home.html' %} 
+{% block content %}
+<div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; padding: 60px 10%; background: #fff; font-family: 'Montserrat', sans-serif;">
+    
+    <!-- Columna Izquierda: Datos y Pago -->
+    <div>
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; letter-spacing: 1px; border-bottom: 1px solid #f2f2f2; padding-bottom: 20px; margin-bottom: 30px; color: #041e3a;">Entrega</h2>
+        
+        <form method="POST" action="{% url 'checkout' %}" id="checkout-form">
+            {% csrf_token %}
+            
+            <!-- Nombre y Apellidos en una sola fila -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                <input type="text" name="nombre" placeholder="NOMBRE" required style="padding: 15px; border: 1px solid #e5e5e5; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
+                <input type="text" name="apellidos" placeholder="APELLIDOS" required style="padding: 15px; border: 1px solid #e5e5e5; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
+            </div>
+
+            <input type="text" name="direccion" placeholder="DIRECCIÓN" required style="padding: 15px; border: 1px solid #e5e5e5; width: 100%; margin-bottom: 15px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                <input type="text" name="ciudad" placeholder="CIUDAD" required style="padding: 15px; border: 1px solid #e5e5e5; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
+                <input type="text" name="codigo_postal" placeholder="CÓDIGO POSTAL" style="padding: 15px; border: 1px solid #e5e5e5; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
+            </div>
+            
+            <input type="tel" name="telefono" placeholder="TELÉFONO" required style="padding: 15px; border: 1px solid #e5e5e5; width: 100%; margin-bottom: 40px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">
+
+            <!-- Sección de Pago Refinada -->
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 24px; letter-spacing: 1px; border-bottom: 1px solid #f2f2f2; padding-bottom: 20px; margin-bottom: 25px; color: #041e3a;">Pago</h2>
+            
+            <div style="border: 1px solid #e5e5e5; padding: 0;">
+                <!-- Opción Mercado Pago / Tarjetas -->
+                <label style="display: flex; align-items: center; gap: 15px; padding: 20px; border-bottom: 1px solid #e5e5e5; cursor: pointer;">
+                    <input type="radio" name="pago" value="mercado_pago" checked style="accent-color: #041e3a;">
+                    <span style="font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;">Tarjeta de Crédito / Débito</span>
+                </label>
+
+                <!-- Opción Yape / Plin -->
+                <label style="display: flex; align-items: center; gap: 15px; padding: 20px; border-bottom: 1px solid #e5e5e5; cursor: pointer;">
+                    <input type="radio" name="pago" value="yape_plin" style="accent-color: #041e3a;">
+                    <span style="font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;">Yape / Plin / Transferencia</span>
+                </label>
+
+                <!-- Opción PayPal -->
+                <label style="display: flex; align-items: center; gap: 15px; padding: 20px; cursor: pointer;">
+                    <input type="radio" name="pago" value="paypal" style="accent-color: #041e3a;">
+                    <span style="font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;">PayPal</span>
+                </label>
+            </div>
+            
+            <p style="font-size: 9px; color: #aaa; margin-top: 15px; letter-spacing: 1px; text-transform: uppercase; text-align: center;">
+                <i class="fas fa-lock"></i> Transacción segura y encriptada bajo estándares SSL.
+            </p>
+        </form>
+    </div>
+
+    <!-- Columna Derecha: Resumen de Compra -->
+    <div style="background: #fcfcfc; padding: 40px; border: 1px solid #f2f2f2; align-self: start;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 30px; text-transform: uppercase; text-align: center;">Resumen del Pedido</h3>
+        
+        <div style="max-height: 300px; overflow-y: auto; margin-bottom: 25px; padding-right: 10px;">
+            {% for key, value in request.session.carrito.items %}
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 11px; letter-spacing: 0.5px;">
+                    <div style="max-width: 70%;">
+                        <span style="text-transform: uppercase; display: block; font-weight: 500;">{{ value.nombre }}</span>
+                        <span style="color: #888;">CANTIDAD: {{ value.cantidad }}</span>
+                    </div>
+                    <span style="font-weight: 600;">S/. {{ value.precio }}</span>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div style="border-top: 1px solid #e5e5e5; padding-top: 25px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px;">
+                <span>Subtotal</span>
+                <span>S/. {{ carrito.total_carrito }}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px;">
+                <span>Envío</span>
+                <span style="color: #041e3a; font-weight: 600;">Cortesía</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 16px; letter-spacing: 1px; color: #041e3a;">
+                <span style="font-family: 'Playfair Display', serif;">TOTAL</span>
+                <span>S/. {{ carrito.total_carrito }}</span>
+            </div>
+        </div>
+
+        <!-- Botón Único de Acción -->
+        <button type="submit" form="checkout-form" style="width: 100%; background: #041e3a; color: white; border: none; padding: 20px; margin-top: 40px; font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 3px; text-transform: uppercase; transition: opacity 0.3s;">
+            FINALIZAR COMPRA
+        </button>
+    </div>
+</div>
+{% endblock %}
